@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,11 +64,11 @@ namespace Hale.Agent
         /// </summary>
         public Check()
         {
-            Name = "System Uptime";
+            Name = "Template";
             Author = "Simon Aronsson, It's Hale";
-            Platform = "Windows";
-            Version = (decimal)0.01;
-            TargetCore = (decimal)0.01;
+            Platform = "N/A";
+            Version = 0.01M;
+            TargetCore = 0.01M;
         }
 
 
@@ -87,22 +86,8 @@ namespace Hale.Agent
         public Response Execute(string origin, long warn = 0, long crit = 0 )
         {
             Response response = new Response();
-            TimeSpan result = new TimeSpan();
             
-
-            using (var uptime = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
-            {
-                uptime.NextValue();
-                result = TimeSpan.FromSeconds(uptime.NextValue());
-            }
-
-            response.Text.Add("Uptime: " + (result.Days > 0 ? result.Days + "d " : "") + (result.Hours > 0 ? result.Hours + "h " : "") + (result.Minutes > 0 ? result.Minutes + "m " : "") + result.Seconds + "s");
-            response.Origin = origin;
-            response.Performance.Add(new PerformancePoint("Days", result.Days));
-            response.Performance.Add(new PerformancePoint("Hours", result.Hours));
-            response.Performance.Add(new PerformancePoint("Minutes", result.Minutes));
-            response.Performance.Add(new PerformancePoint("Seconds", result.Seconds));
-            response.Status = (int)Status.Info;
+            // Add logic here and populate response.
 
             return response;
         }
