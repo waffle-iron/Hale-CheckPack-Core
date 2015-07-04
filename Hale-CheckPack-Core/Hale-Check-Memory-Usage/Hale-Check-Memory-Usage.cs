@@ -88,25 +88,35 @@ namespace Hale.Agent
         {
             Response response = new Response();
 
-            PerformanceCounter ramPercentage = new PerformanceCounter() {
+            try
+            {
+                PerformanceCounter ramPercentage = new PerformanceCounter()
+                {
                     CounterName = "% Commited Bytes in Use",
-                    CategoryName = "Memory" };
+                    CategoryName = "Memory"
+                };
 
-            ramPercentage.NextValue();
+                ramPercentage.NextValue();
 
-            int ramOut = (int)ramPercentage.NextValue();
-            long total = (long)new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
+                int ramOut = (int)ramPercentage.NextValue();
+                long total = (long)new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
 
-            response.Text.Add("Total RAM: " + ConvertToStorageSizes(total) + " (" + ramOut + "% free)");
-            response.Performance.Add(new PerformancePoint("RAM", ramOut));
+                response.Text.Add("Total RAM: " + ConvertToStorageSizes(total) + " (" + ramOut + "% free)");
+                response.Performance.Add(new PerformancePoint("RAM", ramOut));
 
-            if (ramOut <= warn)
-                response.Status = (int)Status.Warning;
-            else if (ramOut <= crit)
+                if (ramOut <= warn)
+                    response.Status = (int)Status.Warning;
+                else if (ramOut <= crit)
+                    response.Status = (int)Status.Critical;
+                else
+                    response.Status = (int)Status.OK;
+            }
+            catch (Exception e)
+            {
                 response.Status = (int)Status.Critical;
-            else
-                response.Status = (int)Status.OK;
-            
+                response.Text.Add(e.Message);
+                response.Text.Add(e.StackTrace);
+            }
 
             return response;
         }
