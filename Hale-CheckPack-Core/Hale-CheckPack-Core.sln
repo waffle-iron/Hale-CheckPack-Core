@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Disk-Space", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Template", "Hale-Check-Template\Hale-Check-Template.csproj", "{4F921DC2-8989-4A91-86DD-5C0B03521566}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "Hale-Check-Memory-Usage\Hale-Check-Memory-Usage.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4F921DC2-8989-4A91-86DD-5C0B03521566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F921DC2-8989-4A91-86DD-5C0B03521566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F921DC2-8989-4A91-86DD-5C0B03521566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34864891-9584-4BD1-B8CD-24FED6566C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34864891-9584-4BD1-B8CD-24FED6566C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

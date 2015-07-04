@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,11 +65,11 @@ namespace Hale.Agent
         /// </summary>
         public Check()
         {
-            Name = "Disk Space";
+            Name = "Memory Usage";
             Author = "Simon Aronsson, It's Hale";
             Platform = "Windows";
-            Version = (decimal)0.01;
-            TargetCore = (decimal)0.01;
+            Version = 0.01M;
+            TargetCore = 0.01M;
         }
 
 
@@ -81,34 +81,32 @@ namespace Hale.Agent
         /// 
         /// Any checks not adhering to this standard will not be merged into the checkpacks.
         /// </summary>
-        /// <param name="crit">The critical threshold for each object that is checked.</param>
-        /// <param name="warn">The warning threshold for each object that is checked.</param>
-        /// <param name="origin">A hash representing the host that requested the information.</param>
-        public Response Execute(string origin, long warn = 20, long crit = 10)
+        /// <param name="crit">Not used for this check, but mandatory</param>
+        /// <param name="warn">Not used for this check, but mandatory</param>
+        /// <param name="origin">The host requesting the check</param>
+        public Response Execute(string origin, long warn = 0, long crit = 0 )
         {
             Response response = new Response();
-            
-            response.Origin = origin;
-            response.Status = (int)Status.OK;
-            try {
-                DriveInfo[] drives = DriveInfo.GetDrives();
 
-                foreach (DriveInfo drive in drives)
-                {
-                    long diskPercentage = (100 * drive.TotalFreeSpace / drive.TotalSize);
+            PerformanceCounter ramPercentage = new PerformanceCounter() {
+                    CounterName = "% Commited Bytes in Use",
+                    CategoryName = "Memory" };
 
-                    response.Status = (diskPercentage <= crit ? (int)Status.Critical : (diskPercentage <= warn && response.Status == (int)Status.OK ? (int)Status.Warning: (int)Status.OK));
-                    response.Text.Add(drive.Name + " " + ConvertToStorageSizes(drive.TotalFreeSpace) + " of " + ConvertToStorageSizes(drive.TotalSize) + " free (" + diskPercentage + "%)");
-                    response.Performance.Add(new PerformancePoint(drive.Name + " Free %", diskPercentage));
-                
-                }
-            }
-            catch (Exception e)
-            {
-                response.Text.Add("Failed to execute check.");
-                response.Text.Add(e.Message + "\n" + e.StackTrace);
+            ramPercentage.NextValue();
+
+            int ramOut = (int)ramPercentage.NextValue();
+            long total = (long)new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
+
+            response.Text.Add("Total RAM: " + ConvertToStorageSizes(total) + " (" + ramOut + "% free)");
+            response.Performance.Add(new PerformancePoint("RAM", ramOut));
+
+            if (ramOut <= warn)
+                response.Status = (int)Status.Warning;
+            else if (ramOut <= crit)
                 response.Status = (int)Status.Critical;
-            }
+            else
+                response.Status = (int)Status.OK;
+            
 
             return response;
         }
