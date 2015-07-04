@@ -80,7 +80,10 @@ namespace Hale.Agent
         /// 
         /// Any checks not adhering to this standard will not be merged into the checkpacks.
         /// </summary>
-        public Response Execute(string originHost)
+        /// <param name="crit">Not used for this check, but mandatory</param>
+        /// <param name="warn">Not used for this check, but mandatory</param>
+        /// <param name="origin">The host requesting the check</param>
+        public Response Execute(string origin, long warn = 0, long crit = 0 )
         {
             Response response = new Response();
             TimeSpan result = new TimeSpan();
