@@ -10,34 +10,39 @@ namespace Hale.Agent
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
     /// </summary>
-    public class Check
+    public class Check : ICheck
     {
 
-        /// <summary>
-        /// The name of the check. This will be visible in the Web UI.
-        /// For example: "System Uptime"
-        /// </summary>
         public string Name
         {
-            get;
-            set;
+            get {
+                return "Memory Usage";
+            }
         }
-        /// <summary>
-        /// Person and organization (opt) that developed the check.
-        /// </summary>
         public string Author
         {
-            get;
-            set;
+            get
+            {
+                return "Simon Aronsson";
+            }
+            
         }
 
-        /// <summary>
-        /// Internal version of the check itself.
-        /// </summary>
-        public decimal Version
+        public decimal TargetApi
         {
-            get;
-            set;
+            get
+            {
+                return 0.1M;
+            }
+        }
+
+
+        public Version Version
+        {
+            get
+            {
+                return new Version (0, 1, 1);
+            }
         }
 
         /// <summary>
@@ -46,8 +51,11 @@ namespace Hale.Agent
         /// </summary>
         public string Platform
         {
-            get;
-            set;
+            get
+            {
+                return "Windows";
+            }
+            
         }
 
         /// <summary>
@@ -65,10 +73,6 @@ namespace Hale.Agent
         /// </summary>
         public Check()
         {
-            Name = "Memory Usage";
-            Author = "Simon Aronsson, It's Hale";
-            Platform = "Windows";
-            Version = 0.01M;
             TargetCore = 0.01M;
         }
 
@@ -92,7 +96,7 @@ namespace Hale.Agent
             {
                 PerformanceCounter ramPercentage = new PerformanceCounter()
                 {
-                    CounterName = "% Commited Bytes in Use",
+                    CounterName = "% Committed Bytes in Use",
                     CategoryName = "Memory"
                 };
 
@@ -104,10 +108,10 @@ namespace Hale.Agent
                 response.Text.Add("Total RAM: " + ConvertToStorageSizes(total) + " (" + ramOut + "% free)");
                 response.Performance.Add(new PerformancePoint("RAM", ramOut));
 
-                if (ramOut <= warn)
-                    response.Status = (int)Status.Warning;
-                else if (ramOut <= crit)
+                if (ramOut <= crit)
                     response.Status = (int)Status.Critical;
+                else if (ramOut <= warn)
+                    response.Status = (int)Status.Warning;
                 else
                     response.Status = (int)Status.OK;
             }
@@ -160,5 +164,19 @@ namespace Hale.Agent
 
             return builder.ToString();
         }
+    }
+
+    public interface ICheck
+    {
+        string Name
+        {
+            get;
+        }
+        string Author { get; }
+        Version Version { get; }
+
+        string Platform { get; }
+
+        Decimal TargetApi { get; }
     }
 }
