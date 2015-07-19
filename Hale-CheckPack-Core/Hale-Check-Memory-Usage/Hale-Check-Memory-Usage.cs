@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hale_Lib.Responses;
 
 namespace Hale.Agent
 {
@@ -13,13 +14,13 @@ namespace Hale.Agent
     private class Check : ICheck
     {
 
-        private string Name
+        public string Name
         {
             get {
                 return "Memory Usage";
             }
         }
-        private string Author
+        public string Author
         {
             get
             {
@@ -28,7 +29,7 @@ namespace Hale.Agent
             
         }
 
-        private decimal TargetApi
+        public decimal TargetApi
         {
             get
             {
@@ -37,7 +38,7 @@ namespace Hale.Agent
         }
 
 
-        private Version Version
+        public Version Version
         {
             get
             {
@@ -49,7 +50,7 @@ namespace Hale.Agent
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        private string Platform
+        public string Platform
         {
             get
             {
@@ -62,7 +63,7 @@ namespace Hale.Agent
         /// What Hale Core was this check developed for?
         /// This is to avoid compability issues.
         /// </summary>
-        private decimal TargetAPI
+        public decimal TargetAPI
         {
             get
             {
@@ -71,7 +72,7 @@ namespace Hale.Agent
             
         }
 
-        private Response Execute(string origin, long warn, long crit)
+        public Response Execute(string origin, long warn, long crit)
         {
             Response response = new Response();
 
@@ -89,7 +90,7 @@ namespace Hale.Agent
                 long total = (long)new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
 
                 response.Text.Add("Total RAM: " + ConvertToStorageSizes(total) + " (" + ramOut + "% free)");
-                response.Performance.Add(new PerformancePoint("RAM", ramOut));
+                response.Metrics.Add(new Metric() { Name = "RAM", Unit = (int)MetricUnits.Percentage, Value = ramOut });
 
                 if (ramOut <= crit)
                     response.Status = (int)Status.Critical;
