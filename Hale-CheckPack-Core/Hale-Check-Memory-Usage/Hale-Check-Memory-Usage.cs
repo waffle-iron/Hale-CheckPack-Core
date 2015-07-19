@@ -11,7 +11,7 @@ namespace Hale.Agent
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
     /// </summary>
-    private class Check : ICheck
+    public class Check : ICheck
     {
 
         public string Name
