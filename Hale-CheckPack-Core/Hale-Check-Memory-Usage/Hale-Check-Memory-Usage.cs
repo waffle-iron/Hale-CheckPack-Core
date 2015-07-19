@@ -10,16 +10,16 @@ namespace Hale.Agent
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
     /// </summary>
-    public class Check : ICheck
+    private class Check : ICheck
     {
 
-        public string Name
+        private string Name
         {
             get {
                 return "Memory Usage";
             }
         }
-        public string Author
+        private string Author
         {
             get
             {
@@ -28,7 +28,7 @@ namespace Hale.Agent
             
         }
 
-        public decimal TargetApi
+        private decimal TargetApi
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Hale.Agent
         }
 
 
-        public Version Version
+        private Version Version
         {
             get
             {
@@ -49,7 +49,7 @@ namespace Hale.Agent
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        public string Platform
+        private string Platform
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Hale.Agent
         /// What Hale Core was this check developed for?
         /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetAPI
+        private decimal TargetAPI
         {
             get
             {
@@ -71,7 +71,7 @@ namespace Hale.Agent
             
         }
 
-        public Response Execute(string origin, long warn, long crit)
+        private Response Execute(string origin, long warn, long crit)
         {
             Response response = new Response();
 
@@ -108,6 +108,45 @@ namespace Hale.Agent
             return response;
         }
 
+        private string ConvertToStorageSizes(long p)
+        {
+            const long TER = 1099511627776;
+            const long GIG = 1073741824;
+            const long MEG = 1048576;
+            const long KIL = 1024;
+
+
+            StringBuilder builder = new StringBuilder();
+
+            long remainder = p;
+
+
+            if (remainder >= TER)
+            {
+                builder.Append(remainder / TER + "TB ");
+                remainder = remainder % TER;
+
+            }
+            else if (remainder >= GIG)
+            {
+                builder.Append(remainder / GIG + "GB ");
+                remainder = remainder % GIG;
+            }
+            else if (remainder >= MEG)
+            {
+                builder.Append(remainder / MEG + "MB ");
+                remainder = remainder % MEG;
+            }
+            else if (remainder >= KIL)
+            {
+                builder.Append(remainder / KIL + "KB ");
+                remainder = remainder % KIL;
+            }
+            else
+                builder.Append(remainder + "B ");
+
+            return builder.ToString();
+        }
         
     }
 
