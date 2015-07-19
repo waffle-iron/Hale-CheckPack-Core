@@ -62,33 +62,16 @@ namespace Hale.Agent
         /// What Hale Core was this check developed for?
         /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetCore
+        public decimal TargetAPI
         {
-            get;
-            set;
+            get
+            {
+                return 0.01M;
+            }
+            
         }
 
-        /// <summary>
-        /// Set all the attributes above directly in the constructor.
-        /// </summary>
-        public Check()
-        {
-            TargetCore = 0.01M;
-        }
-
-
-        /// <summary>
-        /// Executes the check and returns a Response instance. This is then serialized in
-        /// the agent to JSON. This method must always be named Execute, and should always return a
-        /// response following the stated standard. However, you are free to add as much logic as your
-        /// use case requires in other classes/methods.
-        /// 
-        /// Any checks not adhering to this standard will not be merged into the checkpacks.
-        /// </summary>
-        /// <param name="crit">Not used for this check, but mandatory</param>
-        /// <param name="warn">Not used for this check, but mandatory</param>
-        /// <param name="origin">The host requesting the check</param>
-        public Response Execute(string origin, long warn = 0, long crit = 0 )
+        public Response Execute(string origin, long warn, long crit)
         {
             Response response = new Response();
 
@@ -125,45 +108,7 @@ namespace Hale.Agent
             return response;
         }
 
-        private string ConvertToStorageSizes(long p)
-        {
-            const long TER = 1099511627776;
-            const long GIG = 1073741824;
-            const long MEG = 1048576;
-            const long KIL = 1024;
-
-
-            StringBuilder builder = new StringBuilder();
-
-            long remainder = p;
-
-
-            if (remainder >= TER)
-            {
-                builder.Append(remainder / TER + "TB ");
-                remainder = remainder % TER;
-
-            }
-            else if (remainder >= GIG)
-            {
-                builder.Append(remainder / GIG + "GB ");
-                remainder = remainder % GIG;
-            }
-            else if (remainder >= MEG)
-            {
-                builder.Append(remainder / MEG + "MB ");
-                remainder = remainder % MEG;
-            }
-            else if (remainder >= KIL)
-            {
-                builder.Append(remainder / KIL + "KB ");
-                remainder = remainder % KIL;
-            }
-            else
-                builder.Append(remainder + "B ");
-
-            return builder.ToString();
-        }
+        
     }
 
     public interface ICheck
@@ -178,5 +123,7 @@ namespace Hale.Agent
         string Platform { get; }
 
         Decimal TargetApi { get; }
+
+        public Response Execute(string origin, long warn = 0, long crit = 0);
     }
 }
