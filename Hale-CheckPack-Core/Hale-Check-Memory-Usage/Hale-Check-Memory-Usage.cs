@@ -164,6 +164,6 @@ namespace Hale.Agent
 
         Decimal TargetApi { get; }
 
-        public Response Execute(string origin, long warn = 0, long crit = 0);
+        Response Execute(string origin, long warn = 0, long crit = 0);
     }
 }
