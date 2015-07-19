@@ -157,13 +157,24 @@ namespace Hale.Agent
         {
             get;
         }
-        string Author { get; }
-        Version Version { get; }
+        string Author
+        {
+            get;
+        }
+        Version Version
+        {
+            get;
+        }
 
-        string Platform { get; }
+        string Platform {
+            get;
+        }
 
-        Decimal TargetApi { get; }
+        Decimal TargetApi {
+            get;
+        }
 
         Response Execute(string origin, long warn = 0, long crit = 0);
+
     }
 }

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="Hale-Lib">
       <HintPath>..\..\..\Hale-Lib\Hale-Lib\Hale-Lib\bin\Debug\Hale-Lib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
