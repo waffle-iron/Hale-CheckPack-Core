@@ -1,1 +1,1 @@
-mv ./Hale-Lib.dll ./Hale-Check-Memory-Usage/bin/Release/Hale-Lib.dll
+mv ./Hale-CheckPack-Core//Hale-Lib.dll ./Hale-CheckPack-Core/Hale-Check-Memory-Usage/bin/Release/Hale-Lib.dll
