@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{325FD737-0B40-4008-8ECD-382A561CB38B}"
 	ProjectSection(SolutionItems) = preProject
 		..\.travis.yml = ..\.travis.yml
+		Hale-Lib.dll = Hale-Lib.dll
 		resolve-dependencies.sh = resolve-dependencies.sh
 	EndProjectSection
 EndProject
