@@ -2,5 +2,4 @@ language: csharp
 solution: Hale-CheckPack-Core/Hale-CheckPack-Core.sln
 before_script:
  - chmod +x ./Hale-CheckPack-Core/resolve-dependencies.sh
-
-script: ./Hale-CheckPack-Core/resolve-dependencies.sh
+ - ./Hale-CheckPack-Core/resolve-dependencies.sh
