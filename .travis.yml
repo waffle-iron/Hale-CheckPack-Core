@@ -1,2 +1,3 @@
 language: csharp
 solution: Hale-CheckPack-Core/Hale-CheckPack-Core.sln
+install: ./resolve-dependencies.sh
