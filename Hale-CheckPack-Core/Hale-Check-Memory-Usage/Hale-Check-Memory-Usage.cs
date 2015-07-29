@@ -10,7 +10,7 @@ using Hale_Lib;
 namespace Hale.Agent
 {
     /// <summary>
-    /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
+    /// All checks need to realize the interface ICheck.
     /// </summary>
     public class Check : ICheck
     {
