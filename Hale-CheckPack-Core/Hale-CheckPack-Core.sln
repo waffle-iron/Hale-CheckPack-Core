@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-CPU-Usage", "Hale-Check-CPU-Usage\Hale-Check-CPU-Usage.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-CheckPack-UnitTests", "Hale-CheckPack-Core-UnitTests\Hale-CheckPack-UnitTests.csproj", "{3F04BE6A-1326-4C4D-98B9-A462A453ED63}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F04BE6A-1326-4C4D-98B9-A462A453ED63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F04BE6A-1326-4C4D-98B9-A462A453ED63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F04BE6A-1326-4C4D-98B9-A462A453ED63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F04BE6A-1326-4C4D-98B9-A462A453ED63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
