@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hale_Lib.Responses;
 using Hale_Lib;
+using Microsoft.VisualBasic.Devices;
 
 namespace Hale.Agent
 {

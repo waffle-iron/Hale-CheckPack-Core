@@ -1,16 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "Hale-Check-Memory-Usage\Hale-Check-Memory-Usage.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Disk-Usage", "Hale-Check-Memory-Usage\Hale-Check-Disk-Usage.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{325FD737-0B40-4008-8ECD-382A561CB38B}"
 	ProjectSection(SolutionItems) = preProject
 		..\.travis.yml = ..\.travis.yml
-		Hale-Lib.dll = Hale-Lib.dll
-		resolve-dependencies.sh = resolve-dependencies.sh
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "Hale-Check-Disk-Usage\Hale-Check-Memory-Usage.csproj", "{8D936190-1EB4-4C40-81C3-5F3A5AD58D1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-CPU-Usage", "Hale-Check-CPU-Usage\Hale-Check-CPU-Usage.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,14 @@ Global
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D936190-1EB4-4C40-81C3-5F3A5AD58D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D936190-1EB4-4C40-81C3-5F3A5AD58D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D936190-1EB4-4C40-81C3-5F3A5AD58D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D936190-1EB4-4C40-81C3-5F3A5AD58D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
