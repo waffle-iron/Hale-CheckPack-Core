@@ -85,22 +85,22 @@ namespace Hale.Agent
                 {
                     float percentage = FetchDiskFreePercentage(drive);
                     response.Metrics.Add(new Metric() { Name = drive.Name, Unit = (int)MetricUnits.Percentage, Value = percentage});
-                    if (percentage < crit)
+                    if (percentage > crit)
                     {
-                        response.Text.Add(drive.Name + " has exceeded the critical limit (" + crit + "%)");
+                        response.Text.Add(drive.Name + " has exceeded the critical limit (" + percentage + "%  > " + crit + "%)");
                         response.Status = (int)Status.Critical;
                     }
                         
-                    else if (percentage < warn)
+                    else if (percentage > warn)
                     {
                         if (response.Status != (int) Status.Critical)
                             response.Status = (int) Status.Warning;
 
-                        response.Text.Add(drive.Name + " has exceeded the warning limit (" + warn + " %)");
+                        response.Text.Add(drive.Name + " has exceeded the warning limit (" + percentage + "%  > " + warn + " %)");
                     }
                     else
                     {
-                        response.Text.Add(drive.Name + " is OK.");
+                        response.Text.Add(drive.Name + " is OK. (" + percentage + "%  free)");
                     }
                         
 
@@ -111,10 +111,10 @@ namespace Hale.Agent
 
         internal float FetchDiskFreePercentage(DriveInfo drive)
         {
-            return (drive.TotalFreeSpace / drive.TotalSize);
+            return (float)Math.Round((100 * (double)drive.TotalFreeSpace / drive.TotalSize), 0);
 
         }
-        
+
         
 
     }
