@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hale_Lib.Checks;
+using System;
 using System.Collections.Generic;
 
 using System.Linq;
@@ -10,66 +11,44 @@ namespace Hale.Agent
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
     /// </summary>
-    public class Check
+    public class UptimeCheck: ICheck
     {
 
         /// <summary>
         /// The name of the check. This will be visible in the Web UI.
         /// For example: "System Uptime"
         /// </summary>
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; } = "System Uptime";
+
         /// <summary>
         /// Person and organization (opt) that developed the check.
         /// </summary>
-        public string Author
-        {
-            get;
-            set;
-        }
+        public string Author { get; } = "hale project";
 
         /// <summary>
         /// Internal version of the check itself.
         /// </summary>
-        public decimal Version
-        {
-            get;
-            set;
-        }
+        public Version Version { get; } = new Version(0, 1, 1);
 
         /// <summary>
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        public string Platform
-        {
-            get;
-            set;
-        }
+        public string Platform { get; } = "Windows";
 
         /// <summary>
-        /// What Hale Core was this check developed for?
-        /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetCore
-        {
-            get;
-            set;
-        }
+        public decimal TargetApi { get; } = 0.1M;
+
+        /// <summary>
+        /// </summary>
+        public bool ParallelExecution { get; } = true;
 
         /// <summary>
         /// Set all the attributes above directly in the constructor.
         /// </summary>
-        public Check()
+        public UptimeCheck()
         {
-            Name = "System Uptime";
-            Author = "Simon Aronsson, It's Hale";
-            Platform = "Windows";
-            Version = (decimal)0.01;
-            TargetCore = (decimal)0.01;
         }
 
 
@@ -81,30 +60,33 @@ namespace Hale.Agent
         /// 
         /// Any checks not adhering to this standard will not be merged into the checkpacks.
         /// </summary>
-        /// <param name="crit">Not used for this check, but mandatory</param>
-        /// <param name="warn">Not used for this check, but mandatory</param>
-        /// <param name="origin">The host requesting the check</param>
-        public Response Execute(string origin, long warn = 0, long crit = 0 )
+        /// <param name="settings"></param>
+        public CheckResult Execute(CheckTargetSettings settings)
         {
-            Response response = new Response();
-            TimeSpan result = new TimeSpan();
-            
+            CheckResult result = new CheckResult();
+            TimeSpan uptime = new TimeSpan();
 
-            using (var uptime = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
+            float _raw;
+
+            using (var utCounter = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
             {
-                uptime.NextValue();
-                result = TimeSpan.FromSeconds(uptime.NextValue());
+                utCounter.NextValue();
+                _raw = utCounter.NextValue();
+                uptime = TimeSpan.FromSeconds(_raw);
             }
 
-            response.Text.Add("Uptime: " + (result.Days > 0 ? result.Days + "d " : "") + (result.Hours > 0 ? result.Hours + "h " : "") + (result.Minutes > 0 ? result.Minutes + "m " : "") + result.Seconds + "s");
-            response.Origin = origin;
-            response.Performance.Add(new PerformancePoint("Days", result.Days));
-            response.Performance.Add(new PerformancePoint("Hours", result.Hours));
-            response.Performance.Add(new PerformancePoint("Minutes", result.Minutes));
-            response.Performance.Add(new PerformancePoint("Seconds", result.Seconds));
-            response.Status = (int)Status.Info;
+            result.Raw = _raw;
+            // Todo: Clean up this awful mess @todo @cleanup -NM
+            result.Message = "Uptime: "+(uptime.Days > 0 ? uptime.Days + "d " : "")+
+                (uptime.Hours > 0 ? uptime.Hours + "h " : "")+
+                (uptime.Minutes > 0 ? uptime.Minutes + "m " : "")+
+                (uptime.Seconds + "s");
 
-            return response;
+            result.Warning = _raw > settings.Thresholds.Warning;
+            result.Critical = _raw > settings.Thresholds.Critical;
+
+            return result;
         }
+
     }
 }
