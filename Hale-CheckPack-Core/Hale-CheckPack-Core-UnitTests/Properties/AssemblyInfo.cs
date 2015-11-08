@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hale-Check-Uptime")]
+[assembly: AssemblyTitle("Hale-CheckPack-Core-UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("It's Hale")]
-[assembly: AssemblyProduct("Hale-Check-Uptime")]
-[assembly: AssemblyCopyright("Copyright © It's Hale 2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Hale-CheckPack-Core-UnitTests")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b22e1217-d7f9-46ae-b719-596fa8f650d1")]
+[assembly: Guid("3f04be6a-1326-4c4d-98b9-a462a453ed63")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.15311.2")]
-[assembly: AssemblyFileVersion("1.0.15311.2")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
