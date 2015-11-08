@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "Hale-Check-Memory-Usage\Hale-Check-Memory-Usage.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
 EndProject
@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{325FD737
 		Hale-Lib.dll = Hale-Lib.dll
 		resolve-dependencies.sh = resolve-dependencies.sh
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Disk-Space", "Hale-Check-Disk-Space\Hale-Check-Disk-Space.csproj", "{912018B1-15C8-41B1-9C96-FF4C057B635F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Uptime", "Hale-Check-Uptime\Hale-Check-Uptime.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +26,14 @@ Global
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34864891-9584-4BD1-B8CD-24FED6566C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{912018B1-15C8-41B1-9C96-FF4C057B635F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{912018B1-15C8-41B1-9C96-FF4C057B635F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{912018B1-15C8-41B1-9C96-FF4C057B635F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{912018B1-15C8-41B1-9C96-FF4C057B635F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

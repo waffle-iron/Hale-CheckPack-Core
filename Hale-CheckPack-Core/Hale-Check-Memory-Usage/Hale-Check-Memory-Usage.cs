@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hale_Lib.Responses;
 using Hale_Lib;
+using Hale_Lib.Checks;
 
 namespace Hale.Agent
 {
@@ -15,67 +16,29 @@ namespace Hale.Agent
     public class Check : ICheck
     {
 
-        public string Name
-        {
-            get {
-                return "Memory Usage";
-            }
-        }
-        public string Author
-        {
-            get
-            {
-                return "Simon Aronsson";
-            }
-            
-        }
+        public string Name { get; } = "Memory Usage";
 
-        public decimal TargetApi
-        {
-            get
-            {
-                return 0.1M;
-            }
-        }
+        public string Author { get; } = "Simon Aronsson";
 
-
-        public Version Version
-        {
-            get
-            {
-                return new Version (0, 1, 1);
-            }
-        }
+        public Version Version { get; } = new Version (0, 1, 1);
 
         /// <summary>
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        public string Platform
-        {
-            get
-            {
-                return "Windows";
-            }
-            
-        }
+        public string Platform { get; } = "Windows";
 
         /// <summary>
         /// What Hale Core was this check developed for?
         /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetAPI
-        {
-            get
-            {
-                return 0.01M;
-            }
-            
-        }
+        public decimal TargetAPI { get; } = 0.01M;
 
-        public Response Execute(string origin, long warn, long crit)
+        public bool ParallelExecution { get; } = false;
+
+        public CheckResult Execute(CheckTargetSettings settings)
         {
-            Response response = new Response();
+            CheckResult result = new CheckResult();
 
             try
             {
