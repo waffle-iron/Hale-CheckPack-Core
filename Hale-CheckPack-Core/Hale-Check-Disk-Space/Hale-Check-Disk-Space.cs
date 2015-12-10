@@ -1,77 +1,56 @@
-﻿using System;
+﻿using Hale_Lib.Checks;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Hale.Agent
+using static Hale_Lib.Utilities.StorageUnitFormatter;
+
+namespace Hale.Checks
 {
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
     /// </summary>
-    public class Check
+    public class DiskSpaceCheck: ICheck
     {
 
         /// <summary>
         /// The name of the check. This will be visible in the Web UI.
         /// For example: "System Uptime"
         /// </summary>
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; } = "Disk Space";
+
         /// <summary>
         /// Person and organization (opt) that developed the check.
         /// </summary>
-        public string Author
-        {
-            get;
-            set;
-        }
+        public string Author { get; } = "hale project";
 
         /// <summary>
         /// Internal version of the check itself.
         /// </summary>
-        public decimal Version
-        {
-            get;
-            set;
-        }
+        public Version Version { get; } = new Version(0, 1, 1);
 
         /// <summary>
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        public string Platform
-        {
-            get;
-            set;
-        }
+        public string Platform { get; } = "Windows";
 
         /// <summary>
-        /// What Hale Core was this check developed for?
-        /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetCore
-        {
-            get;
-            set;
-        }
+        public decimal TargetApi { get; } = 0.1M;
+
+        /// <summary>
+        /// </summary>
+        public bool ParallelExecution { get; } = true;
 
         /// <summary>
         /// Set all the attributes above directly in the constructor.
         /// </summary>
-        public Check()
+        public DiskSpaceCheck()
         {
-            Name = "Disk Space";
-            Author = "Simon Aronsson, It's Hale";
-            Platform = "Windows";
-            Version = (decimal)0.01;
-            TargetCore = (decimal)0.01;
-        }
 
+        }
 
         /// <summary>
         /// Executes the check and returns a Response instance. This is then serialized in
@@ -81,76 +60,57 @@ namespace Hale.Agent
         /// 
         /// Any checks not adhering to this standard will not be merged into the checkpacks.
         /// </summary>
-        /// <param name="crit">The critical threshold for each object that is checked.</param>
-        /// <param name="warn">The warning threshold for each object that is checked.</param>
-        /// <param name="origin">A hash representing the host that requested the information.</param>
-        public Response Execute(string origin, long warn = 20, long crit = 10)
+        public CheckResult Execute(CheckTargetSettings settings)
         {
-            Response response = new Response();
-            
-            response.Origin = origin;
-            response.Status = (int)Status.OK;
-            try {
+            CheckResult result = new CheckResult();
+
+            var sb = new StringBuilder();
+
+            try
+            {
                 DriveInfo[] drives = DriveInfo.GetDrives();
 
+
+                bool found = false;
                 foreach (DriveInfo drive in drives)
                 {
-                    long diskPercentage = (100 * drive.TotalFreeSpace / drive.TotalSize);
+               
+                    if (drive.Name.ToLower() == settings.Target.ToLower())
+                    {
+                        float diskPercentage = ((float)drive.TotalFreeSpace / drive.TotalSize);
 
-                    response.Status = (diskPercentage <= crit ? (int)Status.Critical : (diskPercentage <= warn && response.Status == (int)Status.OK ? (int)Status.Warning: (int)Status.OK));
-                    response.Text.Add(drive.Name + " " + ConvertToStorageSizes(drive.TotalFreeSpace) + " of " + ConvertToStorageSizes(drive.TotalSize) + " free (" + diskPercentage + "%)");
-                    response.Performance.Add(new PerformancePoint(drive.Name + " Free %", diskPercentage));
-                
+                        result.Critical = diskPercentage <= settings.Thresholds.Critical;
+                        result.Warning = diskPercentage <= settings.Thresholds.Warning;
+
+                        result.Message = $"{drive.Name} ({drive.VolumeLabel}) {HumanizeStorageUnit(drive.TotalFreeSpace)}of {HumanizeStorageUnit(drive.TotalSize)}free ({diskPercentage.ToString("P1")}).";
+
+                        result.RawValues = new List<DataPoint>();
+
+                        result.RawValues.Add(new DataPoint("freePercentage", diskPercentage));
+                        result.RawValues.Add(new DataPoint("freeBytes", drive.TotalSize - drive.TotalFreeSpace));
+
+                        result.RanSuccessfully = true;
+
+                        found = true;
+
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    result.Message = $"Could not retrieve disk space for disk \"{settings.Target}\"";
+                    result.CheckException = new Exception("Target not found.");
+                    result.RanSuccessfully = false;
                 }
             }
             catch (Exception e)
             {
-                response.Text.Add("Failed to execute check.");
-                response.Text.Add(e.Message + "\n" + e.StackTrace);
-                response.Status = (int)Status.Critical;
+                result.Message = "Failed to get disk space.";
+                result.CheckException = e;
+                result.RanSuccessfully = false;
             }
 
-            return response;
-        }
-
-        private string ConvertToStorageSizes(long p)
-        {
-            const long TER = 1099511627776;
-            const long GIG = 1073741824;
-            const long MEG = 1048576;
-            const long KIL = 1024;
-
-
-            StringBuilder builder = new StringBuilder();
-
-            long remainder = p;
-
-
-            if (remainder >= TER)
-            {
-                builder.Append(remainder / TER + "TB ");
-                remainder = remainder % TER;
-
-            }
-            else if (remainder >= GIG)
-            {
-                builder.Append(remainder / GIG + "GB ");
-                remainder = remainder % GIG;
-            }
-            else if (remainder >= MEG)
-            {
-                builder.Append(remainder / MEG + "MB ");
-                remainder = remainder % MEG;
-            }
-            else if (remainder >= KIL)
-            {
-                builder.Append(remainder / KIL + "KB ");
-                remainder = remainder % KIL;
-            }
-            else
-                builder.Append(remainder + "B ");
-
-            return builder.ToString();
+            return result;
         }
     }
 }

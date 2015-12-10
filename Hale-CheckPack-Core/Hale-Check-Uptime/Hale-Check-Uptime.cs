@@ -1,12 +1,12 @@
 ﻿using Hale_Lib.Checks;
 using System;
 using System.Collections.Generic;
-
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hale.Agent
+using static Hale_Lib.Utilities.TimeSpanFormatter;
+
+namespace Hale.Checks
 {
     /// <summary>
     /// This is a mandatory class that should contain all information regarding the check. This will be instantiated and added to the dynamic list in the Agent.
@@ -64,26 +64,34 @@ namespace Hale.Agent
         public CheckResult Execute(CheckTargetSettings settings)
         {
             CheckResult result = new CheckResult();
-            TimeSpan uptime = new TimeSpan();
 
-            float _raw;
+            try {
+                TimeSpan uptime = new TimeSpan();
 
-            using (var utCounter = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
-            {
-                utCounter.NextValue();
-                _raw = utCounter.NextValue();
-                uptime = TimeSpan.FromSeconds(_raw);
+                float _raw;
+
+                using (var utCounter = new System.Diagnostics.PerformanceCounter("System", "System Up Time"))
+                {
+                    utCounter.NextValue();
+                    _raw = utCounter.NextValue();
+                    uptime = TimeSpan.FromSeconds(_raw);
+                }
+
+                result.RawValues = new List<DataPoint>();
+                result.RawValues.Add(new DataPoint("uptimeSeconds", _raw));
+
+                result.Message = "Uptime: " + HumanizeTimeSpan(uptime);
+
+                result.Warning = _raw > settings.Thresholds.Warning;
+                result.Critical = _raw > settings.Thresholds.Critical;
+
+                result.RanSuccessfully = true;
             }
-
-            result.Raw = _raw;
-            // Todo: Clean up this awful mess @todo @cleanup -NM
-            result.Message = "Uptime: "+(uptime.Days > 0 ? uptime.Days + "d " : "")+
-                (uptime.Hours > 0 ? uptime.Hours + "h " : "")+
-                (uptime.Minutes > 0 ? uptime.Minutes + "m " : "")+
-                (uptime.Seconds + "s");
-
-            result.Warning = _raw > settings.Thresholds.Warning;
-            result.Critical = _raw > settings.Thresholds.Critical;
+            catch (Exception x)
+            {
+                result.CheckException = x;
+                result.RanSuccessfully = false;
+            }
 
             return result;
         }

@@ -11,7 +11,7 @@
     <AssemblyName>Hale-Check-Disk-Space</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.15341.4</AssemblyVersion>
+    <AssemblyVersion>1.0.15344.24</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,12 +32,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>$(MSBuildProjectDirectory)\bin\Debug</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(OutputPath)\..\..\..\..\..\Hale-DevTools\Hale-CheckTester\bin\Debug\Hale-CheckTester.exe</StartProgram>
+    <StartArguments>-d Hale-Check-Disk-Space.dll -p .</StartArguments>
+  </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hale-Lib, Version=0.4.15341.23, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hale-Lib.0.4.15341.23\lib\net45\Hale-Lib.dll</HintPath>
+    <Reference Include="Hale-Lib, Version=0.5.15344.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hale-Lib.0.5.15344.30\lib\net45\Hale-Lib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

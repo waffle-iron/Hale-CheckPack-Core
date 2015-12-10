@@ -11,7 +11,7 @@
     <AssemblyName>Hale-Check-Uptime</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.15341.12</AssemblyVersion>
+    <AssemblyVersion>1.0.15344.17</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,9 +35,15 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>$(MSBuildProjectDirectory)\bin\Debug</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(OutputPath)\..\..\..\Hale-DevTools\Hale-CheckTester\bin\Debug\Hale-CheckTester.exe</StartProgram>
+    <StartArguments>-d Hale-Check-Uptime.dll -p .</StartArguments>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hale-Lib, Version=0.4.15341.26, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hale-Lib.0.4.15341.26\lib\net45\Hale-Lib.dll</HintPath>
+    <Reference Include="Hale-Lib, Version=0.5.15344.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hale-Lib.0.5.15344.30\lib\net45\Hale-Lib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
