@@ -1,0 +1,31 @@
+﻿information:
+  name: Disk Space
+  version: 0.1
+  website: http://checks.itshale.com/core/disk-space
+  author:
+    name: Simon Aronsson
+    organization: Hale Project
+    email: info@itshale.com
+    website: http://www.itshale.com
+
+module:
+  filename: Hale-Check-Disk-Space.dll
+  version: '1.0.*'
+  nuget: HaleCheck-Core-DiskSpace
+  
+options:
+  builtin:
+    - target:
+      name: Volume Letter
+  
+ metrics:
+  - freePercentage:
+    name: Free Percentage
+    description: Amount of free disk space in percent
+    unit: percent
+
+  - freeBytes:
+    name: Free Bytes
+    description: Amount of free disk space in storage units
+    unitResolution: bytes
+    unitTemplate: storageunit

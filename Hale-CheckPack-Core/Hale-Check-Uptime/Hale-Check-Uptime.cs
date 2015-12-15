@@ -77,13 +77,11 @@ namespace Hale.Checks
                     uptime = TimeSpan.FromSeconds(_raw);
                 }
 
-                result.RawValues = new List<DataPoint>();
                 result.RawValues.Add(new DataPoint("uptimeSeconds", _raw));
 
                 result.Message = "Uptime: " + HumanizeTimeSpan(uptime);
 
-                result.Warning = _raw > settings.Thresholds.Warning;
-                result.Critical = _raw > settings.Thresholds.Critical;
+                result.SetThresholds(_raw, settings.Thresholds);
 
                 result.RanSuccessfully = true;
             }
@@ -94,6 +92,11 @@ namespace Hale.Checks
             }
 
             return result;
+        }
+
+        public void Initialize(CheckSettings settings)
+        {
+
         }
 
     }

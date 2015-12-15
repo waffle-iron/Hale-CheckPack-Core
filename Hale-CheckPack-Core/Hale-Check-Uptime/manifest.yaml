@@ -1,0 +1,26 @@
+﻿information:
+  name: Uptime
+  version: 0.1
+  website: http://checks.itshale.com/core/uptime
+  author:
+    name: Hale Project
+    company: Hale Project
+    email: info@itshale.com
+    website: http://www.itshale.com
+
+module:
+  filename: Hale-Check-Uptime.dll
+  version: '1.0.*'
+  nuget: HaleCheck-Core-Uptime
+  
+options:
+  builtin:
+    - target:
+      hidden: true
+  
+ metrics:
+  - uptimeSeconds:
+    name: Uptime
+    description: How long the host operating system has been running since last restart.
+    unitResolution: seconds
+    unitTemplate: timespan

@@ -1,0 +1,31 @@
+﻿information:
+  name: Memory Usage
+  version: 0.1
+  website: http://checks.itshale.com/core/memory-usage
+  author:
+    name: Simon Aronsson
+    organization: Hale Project
+    email: info@itshale.com
+    website: http://www.itshale.com
+
+module:
+  filename: Hale-Check-Memory-Usage.dll
+  version: '1.0.*'
+  nuget: HaleCheck-Core-MemoryUsage
+  
+options:
+  builtin:
+    - target:
+      hidden: true
+  
+ metrics:
+  - freePercentage:
+    name: Free Percentage
+    description: Amount of free RAM in percent
+    unit: percent
+
+  - freeBytes:
+    name: Free Bytes
+    description: Amount of free RAM in storage units
+    unitResolution: bytes
+    unitTemplate: storageunit

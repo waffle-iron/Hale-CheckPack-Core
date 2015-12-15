@@ -67,16 +67,12 @@ namespace Hale.Checks
 
                 result.Message = $"RAM Usage: {HumanizeStorageUnit(memoryFree)}free of total {HumanizeStorageUnit(memoryTotal)}({(freePercentage).ToString("P1")})";
 
-
-                result.RawValues = new List<DataPoint>();
-
                 // Raw value is percent of free RAM (0.0 .. 1.0)
                 result.RawValues.Add(new DataPoint() { DataType = "freePercentage", Value = freePercentage });
                 result.RawValues.Add(new DataPoint() { DataType = "freeBytes", Value = (float)memoryFree });
 
+                result.SetThresholds(freePercentage, settings.Thresholds);
 
-                result.Critical = (freePercentage <= settings.Thresholds.Critical);
-                result.Warning = (freePercentage <= settings.Thresholds.Warning);
                 result.RanSuccessfully = true;
 
             }
@@ -89,6 +85,11 @@ namespace Hale.Checks
 
             return result;
         }
-        
+
+        public void Initialize(CheckSettings settings)
+        {
+
+        }
+
     }
 }

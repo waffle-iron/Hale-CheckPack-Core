@@ -11,7 +11,7 @@
     <AssemblyName>Hale-Check-Uptime</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.15344.17</AssemblyVersion>
+    <AssemblyVersion>1.0.15349.22</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,8 +42,8 @@
     <StartArguments>-d Hale-Check-Uptime.dll -p .</StartArguments>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hale-Lib, Version=0.5.15344.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hale-Lib.0.5.15344.30\lib\net45\Hale-Lib.dll</HintPath>
+    <Reference Include="Hale-Lib, Version=0.5.15349.36, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hale-Lib.0.5.15349.36\lib\net45\Hale-Lib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -79,6 +79,9 @@
     <Compile Include="Response.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="manifest.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

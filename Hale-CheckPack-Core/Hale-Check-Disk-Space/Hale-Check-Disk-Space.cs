@@ -79,15 +79,12 @@ namespace Hale.Checks
                     {
                         float diskPercentage = ((float)drive.TotalFreeSpace / drive.TotalSize);
 
-                        result.Critical = diskPercentage <= settings.Thresholds.Critical;
-                        result.Warning = diskPercentage <= settings.Thresholds.Warning;
-
                         result.Message = $"{drive.Name} ({drive.VolumeLabel}) {HumanizeStorageUnit(drive.TotalFreeSpace)}of {HumanizeStorageUnit(drive.TotalSize)}free ({diskPercentage.ToString("P1")}).";
-
-                        result.RawValues = new List<DataPoint>();
 
                         result.RawValues.Add(new DataPoint("freePercentage", diskPercentage));
                         result.RawValues.Add(new DataPoint("freeBytes", drive.TotalSize - drive.TotalFreeSpace));
+
+                        result.SetThresholds(diskPercentage, settings.Thresholds);
 
                         result.RanSuccessfully = true;
 
@@ -111,6 +108,11 @@ namespace Hale.Checks
             }
 
             return result;
+        }
+
+        public void Initialize(CheckSettings settings)
+        {
+            
         }
     }
 }

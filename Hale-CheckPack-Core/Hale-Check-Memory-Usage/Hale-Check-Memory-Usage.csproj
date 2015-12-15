@@ -42,8 +42,8 @@
     <Compile Include="Hale-Check-Memory-Usage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Hale-Lib, Version=0.5.15344.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hale-Lib.0.5.15344.30\lib\net45\Hale-Lib.dll</HintPath>
+    <Reference Include="Hale-Lib, Version=0.5.15349.36, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hale-Lib.0.5.15349.36\lib\net45\Hale-Lib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
@@ -54,6 +54,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="manifest.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
