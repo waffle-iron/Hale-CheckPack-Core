@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Disk-Space", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Uptime", "Hale-Check-Uptime\Hale-Check-Uptime.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-ServiceStatus", "Hale-Check-ServiceStatus\Hale-Check-ServiceStatus.csproj", "{505D3570-29AF-402C-ABD6-384FC6073DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-CPU-Usage", "Hale-Check-CPU-Usage\Hale-Check-CPU-Usage.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,14 @@ Global
 		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65BB47ED-573C-48DD-ACC8-454E0EE4C039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{505D3570-29AF-402C-ABD6-384FC6073DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{505D3570-29AF-402C-ABD6-384FC6073DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{505D3570-29AF-402C-ABD6-384FC6073DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{505D3570-29AF-402C-ABD6-384FC6073DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

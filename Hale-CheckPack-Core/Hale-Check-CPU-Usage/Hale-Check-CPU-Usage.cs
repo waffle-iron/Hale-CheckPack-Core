@@ -8,77 +8,39 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hale_Lib.Responses;
 using Hale_Lib;
+using Hale_Lib.Checks;
 
 namespace Hale.Agent
 {
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
-    public class Check : ICheck
+    public class CpuUsageCheck : ICheck
     {
 
-        public string Name
-        {
-            get {
-                return "Disk Usage";
-            }
-        }
-        public string Author
-        {
-            get
-            {
-                return "Simon Aronsson";
-            }
-            
-        }
+        public string Name { get; } = "CPU Usage";
 
-        public decimal TargetApi
-        {
-            get
-            {
-                return 0.1M;
-            }
-        }
+        public string Author { get; } = "Hale Project";
 
-
-        public Version Version
-        {
-            get
-            {
-                return new Version (0, 1, 1);
-            }
-        }
+        public Version Version { get; } = new Version(0, 1, 1);
 
         /// <summary>
         /// What platform is this check targeted at?
         /// Might be a specific release of Windows, Linux, OS/400 etc.
         /// </summary>
-        public string Platform
-        {
-            get
-            {
-                return "Windows";
-            }
-            
-        }
+        public string Platform { get; } = "Windows";
 
         /// <summary>
         /// What Hale Core was this check developed for?
         /// This is to avoid compability issues.
         /// </summary>
-        public decimal TargetAPI
-        {
-            get
-            {
-                return 0.01M;
-            }
-            
-        }
+        public decimal TargetApi { get; } = 0.01M;
 
-        public Response Execute(string origin, long warn, long crit)
+        public bool ParallelExecution { get; } = false;
+
+        public CheckResult Execute(CheckTargetSettings settings)
         {
-            Response response = new Response();
-            response.Status = (int) Status.OK;
+            CheckResult cr = new CheckResult();
 
             try
             {
@@ -89,51 +51,55 @@ namespace Hale.Agent
                 cpuCounter.CounterName = "% Processor Time";
                 cpuCounter.InstanceName = "_Total";
 
+                int numSamples = settings.ContainsKey("samples") ? int.Parse(settings["samples"]) : 40;
+                int sampleDelay = settings.ContainsKey("delay") ? int.Parse(settings["delay"]) : 200;
+
+                float sampleSum = 0;
+                float sampleMax = 0;
+                float sampleMin = 100;
+
                 cpuCounter.NextValue();
-                Thread.Sleep(500);
 
-                float cpuPercentage = cpuCounter.NextValue();
-
-                response.Metrics.Add(
-                    new Metric()
-                    {
-                        Name = "CPU Usage",
-                        Unit = (int)MetricUnits.Percentage,
-                        Value = cpuPercentage
-                    }
-                );
-
-                if (cpuPercentage > crit)
+                for (int i = 0; i < numSamples; i++)
                 {
-                    response.Status = (int)Status.Critical;
-                    response.Text.Add("CPU Usage has exceeded the critical threshold (" + cpuPercentage + "% > " + crit + "%)");
-                }
-                else if (cpuPercentage > warn)
-                {
-                    if (response.Status != (int)Status.Critical)
-                        response.Status = (int)Status.Warning;
+                    float sample = cpuCounter.NextValue();
 
-                    response.Text.Add("CPU Usage has exceeded the warning threshold (" + cpuPercentage + "% > " + warn + "%)");
+                    if (sample > sampleMax)
+                        sampleMax = sample;
+
+                    if (sample < sampleMin)
+                        sampleMin = sample;
+
+                    sampleSum += sample;
+                    Thread.Sleep(sampleDelay + (i * 10));
                 }
-                else
-                {
-                    response.Text.Add("CPU is currently working at " + cpuPercentage + "% of the total capacity.");
-                }
+
+                sampleMax /= 100;
+                sampleMin /= 100;
+
+                float cpuPercentage = (sampleSum / numSamples) / 100;
+
+                cr.RawValues.Add( new DataPoint("CPU Usage", cpuPercentage) );
+
+                cr.SetThresholds(cpuPercentage, settings.Thresholds);
+
+                cr.Message = $"CPU average: {cpuPercentage.ToString("p1")}, min: {sampleMin.ToString("p1")}, max: {sampleMax.ToString("p1")}";
+
+                cr.RanSuccessfully = true;
             }
 
-            catch
+            catch(Exception x)
             {
-                response = new Response();
-                response.Status = (int) Status.Critical;
-                response.Successful = false;
-                response.Text.Add("The check failed to execute.");
+                cr.CheckException = x;
+                cr.RanSuccessfully = false;
+                cr.Message = "The check failed to execute due to exception: " + x.Message;
             }
-            return response;
+            return cr;
         }
 
-        
-        
-        
-
+        public void Initialize(CheckSettings settings)
+        {
+            
+        }
     }
 }
