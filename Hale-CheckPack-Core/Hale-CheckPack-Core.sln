@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Uptime", "Hale-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-ServiceStatus", "Hale-Check-ServiceStatus\Hale-Check-ServiceStatus.csproj", "{505D3570-29AF-402C-ABD6-384FC6073DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-CPU-Usage", "Hale-Check-CPU-Usage\Hale-Check-CPU-Usage.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-CPU", "Hale-Check-CPU-Usage\HaleModule-Core-CPU.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
