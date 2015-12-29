@@ -4,41 +4,40 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hale_Lib.Responses;
-using Hale_Lib;
-using Hale_Lib.Checks;
 
-using static Hale_Lib.Utilities.StorageUnitFormatter;
+using HaleLib;
+using HaleLib.Modules;
+using HaleLib.Modules.Checks;
+using HaleLib.Modules.Info;
+
+using static HaleLib.Utilities.StorageUnitFormatter;
+
 
 namespace Hale.Checks
 {
     /// <summary>
     /// All checks need to realize the interface ICheck.
     /// </summary>
-    public class MemoryUsageCheck : ICheck
+    public class DiskSpaceCheck : Module, ICheckProvider, IInfoProvider
     {
 
-        public string Name { get; } = "Memory Usage";
+        public new string Name { get; } = "Memory Usage";
 
-        public string Author { get; } = "Simon Aronsson";
+        public new string Author { get; } = "Hale Project";
 
-        public Version Version { get; } = new Version (0, 1, 1);
+        public override string Identifier { get; } = "com.itshale.core.memory";
 
-        /// <summary>
-        /// What platform is this check targeted at?
-        /// Might be a specific release of Windows, Linux, OS/400 etc.
-        /// </summary>
-        public string Platform { get; } = "Windows";
+        public new Version Version { get; } = new Version (0, 1, 1);
 
-        /// <summary>
-        /// What Hale Core was this check developed for?
-        /// This is to avoid compability issues.
-        /// </summary>
-        public decimal TargetApi { get; } = 0.01M;
+        public override string Platform { get; } = "Windows";
 
-        public bool ParallelExecution { get; } = false;
+        public new decimal TargetApi { get; } = 1.1M;
 
-        public CheckResult Execute(CheckTargetSettings settings)
+        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
+            = new Dictionary<string, ModuleFunction>();
+
+
+        public CheckResult DefaultCheck(CheckTargetSettings settings)
         {
             CheckResult result = new CheckResult();
 
@@ -80,15 +79,29 @@ namespace Hale.Checks
             {
                 result.Message = "Could not get RAM information.";
                 result.RanSuccessfully = false;
-                result.CheckException = e;
+                result.ExecutionException = e;
             }
 
             return result;
         }
 
-        public void Initialize(CheckSettings settings)
+        public InfoResult DefaultInfo(InfoTargetSettings settings)
         {
+            var result = new InfoResult(settings.Target);
+            result.ExecutionException = new NotImplementedException();
+            return result;
+        }
 
+        public void InitializeCheckProvider(CheckSettings settings)
+        {
+            this.AddCheckFunction(DefaultCheck);
+            this.AddCheckFunction("usage", DefaultCheck);
+        }
+
+        public void InitializeInfoProvider(InfoSettings settings)
+        {
+            this.AddInfoFunction(DefaultInfo);
+            this.AddInfoFunction("sizes", DefaultInfo);
         }
 
     }
