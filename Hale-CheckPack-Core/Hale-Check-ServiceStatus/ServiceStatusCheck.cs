@@ -1,41 +1,39 @@
-﻿using Hale_Lib.Checks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceProcess;
+using HaleLib.Modules;
+using HaleLib.Modules.Checks;
+using HaleLib.Modules.Actions;
+using HaleLib.Modules.Info;
 
-namespace Hale.Checks
+namespace Hale.Modules
 {
-    public class ServiceStatusCheck: ICheck
+    public class ServiceModule: Module, ICheckProvider, IInfoProvider, IActionProvider
     {
-        public string Name { get; } = "Service Status";
+        public new string Name { get; } = "Service Status";
 
-        public string Author { get; } = "Hale Project";
+        public new string Author { get; } = "Hale Project";
 
-        public Version Version { get; } = new Version(0, 1, 1);
+        public new Version Version { get; } = new Version(0, 1, 1);
 
-        /// <summary>
-        /// What platform is this check targeted at?
-        /// Might be a specific release of Windows, Linux, OS/400 etc.
-        /// </summary>
-        public string Platform { get; } = "Windows";
+        public override string Identifier { get; } = "com.itshale.core.service";
 
-        /// <summary>
-        /// What Hale Core was this check developed for?
-        /// This is to avoid compability issues.
-        /// </summary>
-        public decimal TargetApi { get; } = 0.01M;
+        public override string Platform { get; } = "Windows";
 
-        public bool ParallelExecution { get; } = false;
+        public new decimal TargetApi { get; } = 1.1M;
+
+        Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
+            = new Dictionary<string, ModuleFunction>();
 
         static readonly ServiceControllerStatus[] _criticalStatuses = {
             ServiceControllerStatus.Stopped,
             ServiceControllerStatus.StopPending
         };
 
-        public CheckResult Execute(CheckTargetSettings settings)
+        public CheckResult DefaultCheck(CheckTargetSettings settings)
         {
             var cr = new CheckResult();
 
@@ -56,7 +54,7 @@ namespace Hale.Checks
             }
             catch (Exception x)
             {
-                cr.CheckException = x;
+                cr.ExecutionException = x;
                 cr.Message = x.Message;
                 cr.RanSuccessfully = false;
             }
@@ -64,9 +62,36 @@ namespace Hale.Checks
             return cr;
         }
 
-        public void Initialize(CheckSettings settings)
+        public ActionResult StartAction(ActionTargetSettings settings)
         {
-            throw new NotImplementedException();
+            var result = new ActionResult();
+            result.Target = settings.Target;
+            result.ExecutionException = new NotImplementedException();
+            return result;
+        }
+
+        public InfoResult DefaultInfo(InfoTargetSettings settings)
+        {
+            var result = new InfoResult(settings.Target);
+            result.ExecutionException = new NotImplementedException();
+            return result;
+        }
+
+        public void InitializeCheckProvider(CheckSettings settings)
+        {
+            this.AddCheckFunction(DefaultCheck);
+            this.AddCheckFunction("running", DefaultCheck);
+        }
+
+        public void InitializeInfoProvider(InfoSettings settings)
+        {
+            this.AddInfoFunction(DefaultInfo);
+            this.AddInfoFunction("list", DefaultInfo);
+        }
+
+        public void InitializeActionProvider(ActionSettings settings)
+        {
+            this.AddActionFunction("start", StartAction);
         }
     }
 }
