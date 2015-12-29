@@ -155,6 +155,7 @@ namespace Hale.Modules
                 byte targetCpu = 0;
                 result.Items = GetCPUProperties(targetCpu, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
                 result.Message = "Successfully retrieved default CPU info.";
+                result.RanSuccessfully = true;
             }
             catch (Exception x)
             {
