@@ -155,7 +155,7 @@ namespace Hale.Modules
                 var cpus = GetCPUProperties(new byte[] { }, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
                 foreach(var cpu in cpus)
                 {
-                    result.InfoResults.Add(cpu.Key.ToString(), new InfoResult(cpu.Key.ToString())
+                    result.InfoResults.Add(cpu.Key.ToString(), new InfoResult()
                     {
                         RanSuccessfully = true,
                         Items = cpu.Value
@@ -199,9 +199,9 @@ namespace Hale.Modules
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddSingleReturnCheckFunction(DefaultCheck);
-            this.AddSingleReturnCheckFunction("usage", DefaultCheck);
-            this.AddSingleReturnCheckFunction("performance", PerformanceCheck);
+            this.AddSingleResultCheckFunction(DefaultCheck);
+            this.AddSingleResultCheckFunction("usage", DefaultCheck);
+            this.AddSingleResultCheckFunction("performance", PerformanceCheck);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)

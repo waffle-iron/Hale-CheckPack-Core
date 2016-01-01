@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HaleModule-Core-CPU")]
-[assembly: AssemblyDescription("CPU Usage Module")]
+[assembly: AssemblyDescription("CPU Module")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hale Project")]
 [assembly: AssemblyProduct("Hale Core Module Package")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Hale Project  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.16001.45")]
-[assembly: AssemblyFileVersion("1.2.16001.45")]
+[assembly: AssemblyVersion("1.2.16001.47")]
+[assembly: AssemblyFileVersion("1.2.16001.47")]
