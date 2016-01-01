@@ -7,11 +7,12 @@
     <ProjectGuid>{65BB47ED-573C-48DD-ACC8-454E0EE4C039}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hale.Agent</RootNamespace>
-    <AssemblyName>Hale-Check-Uptime</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Hale.Modules</RootNamespace>
+    <AssemblyName>HaleModule-Core-Power</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.15363.25</AssemblyVersion>
+    <AssemblyVersion>1.2.16001.27</AssemblyVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Agent\bin\Debug\checks\Hale-Check-Uptime.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -42,8 +44,8 @@
     <StartArguments>-d Hale-Check-Uptime.dll -p .</StartArguments>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hale-Lib, Version=1.1.15363.104, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hale-Lib.1.1.15363.104\lib\net45\Hale-Lib.dll</HintPath>
+    <Reference Include="Hale-Lib, Version=1.2.16001.124, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hale-Lib.1.2.16001.124\lib\net452\Hale-Lib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -78,7 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hale-Check-Uptime.cs" />
+    <Compile Include="PowerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

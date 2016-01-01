@@ -7,31 +7,29 @@ using System.Threading.Tasks;
 
 using static HaleLib.Utilities.TimeSpanFormatter;
 
-namespace Hale.Checks
+namespace Hale.Modules
 {
     // Todo: Change this module to Power perhaps? -NM 2015-12-30
 
     public class UptimeCheck: Module, IInfoProvider
     {
 
-        public new string Name { get; } = "System Uptime";
+        public new string Name { get; } = "Power";
 
         public new string Author { get; } = "hale project";
 
-        public override string Identifier { get; } = "com.itshale.core.uptime";
-
-        public new Version Version { get; } = new Version(0, 1, 1);
+        public override string Identifier { get; } = "com.itshale.core.power";
 
         public override string Platform { get; } = "Windows";
 
-        public decimal TargetApi { get; } = 1.1M;
+        public new decimal TargetApi { get; } = 1.2M;
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
-        public InfoResult DefaultInfo(InfoTargetSettings settings)
+        public InfoResult DefaultInfo(InfoSettings settings)
         {
-            var result = new InfoResult(settings.Target);
+            var result = new InfoResult();
 
             try {
                 TimeSpan uptime = new TimeSpan();
@@ -62,8 +60,8 @@ namespace Hale.Checks
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddInfoFunction(DefaultInfo);
-            this.AddInfoFunction("uptime", DefaultInfo);
+            this.AddSingleResultInfoFunction(DefaultInfo);
+            this.AddSingleResultInfoFunction("uptime", DefaultInfo);
         }
 
     }

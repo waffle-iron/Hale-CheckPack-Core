@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hale-Check-Uptime")]
+[assembly: AssemblyTitle("HaleModule-Core-Power")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("It's Hale")]
-[assembly: AssemblyProduct("Hale-Check-Uptime")]
-[assembly: AssemblyCopyright("Copyright © It's Hale 2015")]
+[assembly: AssemblyCompany("Hale Project")]
+[assembly: AssemblyProduct("Core Module Package")]
+[assembly: AssemblyCopyright("Copyright © Hale Project 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.15363.25")]
-[assembly: AssemblyFileVersion("1.0.15363.25")]
+[assembly: AssemblyVersion("1.2.16001.27")]
+[assembly: AssemblyFileVersion("1.2.16001.27")]
