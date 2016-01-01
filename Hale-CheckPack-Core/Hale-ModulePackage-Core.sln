@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Memory-Usage", "Hale-Check-Memory-Usage\Hale-Check-Memory-Usage.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Memory", "Hale-Check-Memory-Usage\HaleModule-Core-Memory.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{325FD737-0B40-4008-8ECD-382A561CB38B}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{325FD737
 		resolve-dependencies.sh = resolve-dependencies.sh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Disk-Space", "Hale-Check-Disk-Space\Hale-Check-Disk-Space.csproj", "{912018B1-15C8-41B1-9C96-FF4C057B635F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Storage", "Hale-Check-Disk-Space\HaleModule-Core-Storage.csproj", "{912018B1-15C8-41B1-9C96-FF4C057B635F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-Uptime", "Hale-Check-Uptime\Hale-Check-Uptime.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Power", "Hale-Check-Uptime\HaleModule-Core-Power.csproj", "{65BB47ED-573C-48DD-ACC8-454E0EE4C039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hale-Check-ServiceStatus", "Hale-Check-ServiceStatus\Hale-Check-ServiceStatus.csproj", "{505D3570-29AF-402C-ABD6-384FC6073DA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Services", "Hale-Check-ServiceStatus\HaleModule-Core-Services.csproj", "{505D3570-29AF-402C-ABD6-384FC6073DA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-CPU", "Hale-Check-CPU-Usage\HaleModule-Core-CPU.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject
