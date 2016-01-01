@@ -21,7 +21,7 @@ namespace Hale.Checks
     public class DiskSpaceCheck : Module, ICheckProvider, IInfoProvider
     {
 
-        public new string Name { get; } = "Memory Usage";
+        public new string Name { get; } = "Memory";
 
         public new string Author { get; } = "Hale Project";
 
@@ -31,13 +31,13 @@ namespace Hale.Checks
 
         public override string Platform { get; } = "Windows";
 
-        public new decimal TargetApi { get; } = 1.1M;
+        public new decimal TargetApi { get; } = 1.2M;
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
 
-        public CheckResult DefaultCheck(CheckTargetSettings settings)
+        public CheckResult DefaultCheck(CheckSettings settings)
         {
             CheckResult result = new CheckResult();
 
@@ -85,23 +85,23 @@ namespace Hale.Checks
             return result;
         }
 
-        public InfoResult DefaultInfo(InfoTargetSettings settings)
+        public InfoResult DefaultInfo(InfoSettings settings)
         {
-            var result = new InfoResult(settings.Target);
+            var result = new InfoResult();
             result.ExecutionException = new NotImplementedException();
             return result;
         }
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddCheckFunction(DefaultCheck);
-            this.AddCheckFunction("usage", DefaultCheck);
+            this.AddSingleResultCheckFunction(DefaultCheck);
+            this.AddSingleResultCheckFunction("usage", DefaultCheck);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)
         {
-            this.AddInfoFunction(DefaultInfo);
-            this.AddInfoFunction("sizes", DefaultInfo);
+            this.AddSingleResultInfoFunction(DefaultInfo);
+            this.AddSingleResultInfoFunction("sizes", DefaultInfo);
         }
 
     }
