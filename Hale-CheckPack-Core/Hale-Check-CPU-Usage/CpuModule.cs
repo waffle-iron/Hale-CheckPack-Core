@@ -20,18 +20,16 @@ namespace Hale.Modules
     {
 
         public override string Name { get; } = "CPU Usage";
-        //public override string Author { get; } = "Hale Project";
-        //public override Version Version { get; } = new Version(0, 2, 1);
         public override string Platform { get; } = "Windows";
-        //public override decimal TargetApi { get; } = 1.1M;
+        public override decimal TargetApi { get; } = 1.2M;
         public override string Identifier { get; } = "com.itshale.core.cpu";
 
         Dictionary<string, ModuleFunction> IModuleProviderBase.Functions { get; set; }
             = new Dictionary<string, ModuleFunction>();
 
-        public CheckResult DefaultCheck(CheckTargetSettings settings)
+        public CheckResult DefaultCheck(CheckSettings settings)
         {
-            CheckResult cr = new CheckResult(settings.Target);
+            CheckResult cr = new CheckResult();
 
             try
             {
@@ -85,12 +83,13 @@ namespace Hale.Modules
                 cr.RanSuccessfully = false;
                 cr.Message = "The check failed to execute due to exception: " + x.Message;
             }
+
             return cr;
         }
 
-        public CheckResult PerformanceCheck(CheckTargetSettings settings)
+        public CheckResult PerformanceCheck(CheckSettings settings)
         {
-            CheckResult cr = new CheckResult(settings.Target);
+            CheckResult cr = new CheckResult();
 
             try
             {
@@ -143,59 +142,66 @@ namespace Hale.Modules
                 cr.RanSuccessfully = false;
                 cr.Message = "The check failed to execute due to exception: " + x.Message;
             }
+
             return cr;
 
         }
 
-        public InfoResult DefaultInfo(InfoTargetSettings settings)
+        public InfoFunctionResult DefaultInfo(InfoSettings settings)
         {
-            var result = new InfoResult(settings.Target);
+            var result = new InfoFunctionResult();
             try
             {
-                byte targetCpu = 0;
-                result.Items = GetCPUProperties(targetCpu, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
+                var cpus = GetCPUProperties(new byte[] { }, new[] { "MaxClockSpeed", "NumberOfLogicalProcessors", "NumberOfCores", "Name", "Manufacturer" });
+                foreach(var cpu in cpus)
+                {
+                    result.InfoResults.Add(cpu.Key.ToString(), new InfoResult(cpu.Key.ToString())
+                    {
+                        RanSuccessfully = true,
+                        Items = cpu.Value
+                    });
+                }
                 result.Message = "Successfully retrieved default CPU info.";
                 result.RanSuccessfully = true;
             }
             catch (Exception x)
             {
-                result.ExecutionException = x;
+                result.FunctionException = x;
                 result.Message = $"Cannot get info: {x.Message}.";
             }
 
             return result;
         }
 
-        Dictionary<string, string> GetCPUProperties(byte target, string[] filter)
+        Dictionary<byte, Dictionary<string, string>> GetCPUProperties(byte[] targets, string[] filter)
         {
-            var items = new Dictionary<string, string>();
+            var cpus = new Dictionary<byte,Dictionary<string, string>>();
 
             var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
             var moc = searcher.Get();
 
-            if (moc.Count < target) return items;
+            byte cpuId = 0;
 
-            if (filter.Contains("NumberOfProcessors"))
-            {
-                items.Add("NumberOfProcessors", moc.Count.ToString());
-            }
             foreach (var mo in moc)
             {
-                
+                var items = new Dictionary<string, string>();
                 foreach (var p in mo.Properties)
                 {
                     if (p.Value != null && filter.Contains(p.Name))
                         items.Add(p.Name, p.Value.ToString().TrimEnd());
                 }
+                if(targets.Length == 0 || targets.Contains(cpuId))
+                    cpus.Add(cpuId, items);
+                cpuId++;
             }
-            return items;
+            return cpus;
         }
 
         public void InitializeCheckProvider(CheckSettings settings)
         {
-            this.AddCheckFunction(DefaultCheck);
-            this.AddCheckFunction("usage", DefaultCheck);
-            this.AddCheckFunction("performance", PerformanceCheck);
+            this.AddSingleReturnCheckFunction(DefaultCheck);
+            this.AddSingleReturnCheckFunction("usage", DefaultCheck);
+            this.AddSingleReturnCheckFunction("performance", PerformanceCheck);
         }
 
         public void InitializeInfoProvider(InfoSettings settings)
