@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Memory", "Hale-Check-Memory-Usage\HaleModule-Core-Memory.csproj", "{34864891-9584-4BD1-B8CD-24FED6566C31}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Services", "Hale-Check-ServiceStatus\HaleModule-Core-Services.csproj", "{505D3570-29AF-402C-ABD6-384FC6073DA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-CPU", "Hale-Check-CPU-Usage\HaleModule-Core-CPU.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Paging-Usage", "HaleModule-Core-Swap-Usage\HaleModule-Core-Paging-Usage.csproj", "{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5431865-303D-4709-BDA8-5D1E26C4445E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
