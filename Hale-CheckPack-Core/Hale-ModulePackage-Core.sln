@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Services", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-CPU", "Hale-Check-CPU-Usage\HaleModule-Core-CPU.csproj", "{D5431865-303D-4709-BDA8-5D1E26C4445E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Paging-Usage", "HaleModule-Core-Swap-Usage\HaleModule-Core-Paging-Usage.csproj", "{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Paging-Usage", "HaleModule-Core-Paging-Usage\HaleModule-Core-Paging-Usage.csproj", "{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
