@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-CPU", "Hale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-Paging-Usage", "HaleModule-Core-Paging-Usage\HaleModule-Core-Paging-Usage.csproj", "{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleModule-Core-DNS-Resolvability", "HaleModule-Core-DNS-Resolvability\HaleModule-Core-DNS-Resolvability.csproj", "{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

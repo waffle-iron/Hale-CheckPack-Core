@@ -1,0 +1,25 @@
+﻿information:
+  name: DNS Resolvability
+  version: 0.1
+  website: http://checks.itshale.com/core/dns-resolvability
+  author:
+    name: Simon Aronsson
+    organization: Hale Project
+    email: info@itshale.com
+    website: http://www.itshale.com
+
+module:
+  filename: Hale-Check-DNS-Resolvability.dll
+  version: '1.0.*'
+  nuget: HaleCheck-Core-DNS-Resolvability
+  
+options:
+  builtin:
+    - target:
+      hidden: true
+ metrics:
+  - successfulPercentage:
+    name: Succesful Resolves %
+    description: Successful DNS Resolve Attempts
+    unit: percent
+

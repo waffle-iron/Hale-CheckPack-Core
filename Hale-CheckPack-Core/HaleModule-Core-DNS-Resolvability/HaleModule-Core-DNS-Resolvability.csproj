@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E0BF942-0E90-4CF9-89B1-C51EA1B75024}</ProjectGuid>
+    <ProjectGuid>{4DD16CBC-6F4B-4F6D-ADEB-D0F3742D67EC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HaleModule_Core_Swap_Usage</RootNamespace>
-    <AssemblyName>HaleModule-Core-Paging-Usage</AssemblyName>
+    <RootNamespace>HaleModule_Core_DNS_Resolvability</RootNamespace>
+    <AssemblyName>HaleModule-Core-DNS-Resolvability</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PagingUsage.cs" />
+    <Compile Include="DnsResolvability.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

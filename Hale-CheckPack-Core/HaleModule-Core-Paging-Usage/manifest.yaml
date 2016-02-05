@@ -1,0 +1,25 @@
+﻿information:
+  name: Paging Usage
+  version: 0.1
+  website: http://checks.itshale.com/core/paging-usage
+  author:
+    name: Simon Aronsson
+    organization: Hale Project
+    email: info@itshale.com
+    website: http://www.itshale.com
+
+module:
+  filename: Hale-Check-Paging-Usage.dll
+  version: '1.0.*'
+  nuget: HaleCheck-Core-Paging-Usage
+  
+options:
+  builtin:
+    - target:
+      hidden: true
+  
+ metrics:
+  - usagePercent:
+    name: Used Percentage
+    description: Amount of used space in paging file
+    unit: percent
